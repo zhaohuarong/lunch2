@@ -22,12 +22,14 @@
 		</form>
 		<br/>
 		<?php
+			$userIDAndName = array();
 			$my = new MySQLite();
 			$allUserInfo = $my->getAllUserInfo();
 			$userTableString = "<table border='1'>";
 			$countHaveLunch = 0;
 			for($i = 0; $i < count($allUserInfo); $i ++)
 			{
+				$userIDAndName[$allUserInfo[$i]->getID()] = $allUserInfo[$i]->getUserName();
 				$status_text = "<font color='red'><B>未点</B></font>";
 				if($allUserInfo[$i]->getStatus() == 1)
 				{
@@ -49,8 +51,9 @@
 			$RecordString = "<table border='1'>";
 			for($i = 0; $i < count($allRecord); $i ++)
 			{
+				$status = ($allRecord[$i]->getStatus() == 0) ? "取消" : "点餐";
 				$RecordString .= "<tr>";
-				$RecordString .= "<td>".$allRecord[$i]->getUserID()."</td><td>".$allRecord[$i]->getTime()."</td><td>".$allRecord[$i]->getStatus()."</td>";
+				$RecordString .= "<td>".$userIDAndName[$allRecord[$i]->getUserID()]."</td><td>".$allRecord[$i]->getTime()."</td><td>".$status."</td>";
 				$RecordString .= "</tr>";
 			}
 			$RecordString .= "</table>";
