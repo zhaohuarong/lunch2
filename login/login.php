@@ -14,7 +14,7 @@ $b = $mysqlite->login($_POST["username"], $_POST["password"]);
 
 if($b == 0)
 {
-	header("location:../main_page.php");
+	header("location:../view/main_page.php");
 }
 else
 {
