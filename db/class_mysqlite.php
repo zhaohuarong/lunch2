@@ -3,6 +3,7 @@
 <?php
 
    require_once("../define/define.php");
+   require_once("../db/class_mysqlite.php");
 
    class MySQLite extends SQLite3
    {
@@ -51,32 +52,19 @@ EOF;
          return $arrayRet;
       }
 
-      function getAllUserID()
+      function newRecord($userID, $status)
       {
-         $arrayRet = array();
+         $t = time();
+         $t_string = date("Y-m-d H:i:s",$t);
          $sql =<<<EOF
-         SELECT id FROM lunch_user;
+            INSERT INTO lunch_ret (user_id,time,operation) VALUES ($userID, '$t_string', $status);
 EOF;
-         $ret = $this->query($sql);
-         while($row = $ret->fetchArray(SQLITE3_ASSOC))
+         $ret = $this->exec($sql);
+         if(!$ret)
          {
-            array_push($arrayRet, $row['id']);
+            echo $db->lastErrorMsg();
          }
-         return $arrayRet;
       }
 
-      function queryUserNameAndStatus($userID)
-      {
-         $arrayRet = array();
-         $sql =<<<EOF
-         SELECT name, status FROM lunch_user WHERE id = $userID;
-EOF;
-         $ret = $this->query($sql);
-         while($row = $ret->fetchArray(SQLITE3_ASSOC))
-         {
-            //array_push($arrayRet, $row['id']);
-         }
-         return $arrayRet;
-      }
    }
 ?>

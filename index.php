@@ -6,7 +6,7 @@
 		<title>Login</title>
 	</head>
 	<body>
-		<form action="login/login.php" method="post">
+		<form action="action/login.php" method="post">
 			<input type="text" name="username"/>
 			<input type="password" name="password"/>
 			<input type="submit" name="btn_login"/>

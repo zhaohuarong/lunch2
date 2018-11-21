@@ -1,6 +1,6 @@
 <?php if(!session_id()) session_start(); ?>
 <?php 
-	ini_set('date.timezone','Asia/Shanghai'); 
+	ini_set('date.timezone','Asia/Shanghai');
 	header("content-type:text/html;charset=utf-8");
 
 	require_once("../db/class_mysqlite.php");
@@ -14,8 +14,14 @@
 	</head>
 	<body>
 
+		<?php echo "Welcome ".$_SESSION['userid'].",".$_SESSION['username']."<br/>"; ?>
+		<br/>
+		<form method="post" action="../action/do_lunch.php">
+			<input type="submit" name="y" value="点餐"/>
+			<input type="submit" name="n" value="取消" />
+		</form>
+		<br/>
 		<?php
-			echo "Welcome ".$_SESSION['userid'].",".$_SESSION['username']."<br/>";
 			$my = new MySQLite();
 			$allUserInfo = $my->getAllUserInfo();
 			echo "<table border='1'>";

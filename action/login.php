@@ -1,3 +1,4 @@
+<?php if(!session_id()) session_start(); ?>
 <?php header("content-type:text/html;charset=utf-8"); ?>
 
 <?php
