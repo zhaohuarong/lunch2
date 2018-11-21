@@ -6,8 +6,6 @@ if(!isset($_POST["btn_login"])) {
 	echo "Permission denied";
 }
 
-//echo $_POST["username"].$_POST["password"];
-
 require_once("../db/class_mysqlite.php");
 
 $mysqlite = new MySQLite();

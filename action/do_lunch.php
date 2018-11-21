@@ -15,12 +15,14 @@ $my = new MySQLite();
 if(in_array("点餐", $_POST))
 {
 	echo "yyyyyyyyyyyyyyyyyy<br/>";
-	$my->newRecord($_SESSION['userid'], 1);
+	$my->addRecord($_SESSION['userid'], 1);
+	header("location:../view/main_page.php");
 }
 else if(in_array("取消", $_POST))
 {
 	echo "nnnnnnnnnnnnnn<br/>";
-	$my->newRecord($_SESSION['userid'], 0);
+	$my->addRecord($_SESSION['userid'], 0);
+	header("location:../view/main_page.php");
 }
 else
 {

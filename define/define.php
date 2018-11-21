@@ -28,4 +28,35 @@ class UserInfo
 	}
 }
 
+class LunchInfo
+{
+	var $mID;
+	var $mUserID;
+	var $mTime;
+	var $mStatus;
+
+	function __construct($id, $userID, $time, $status)
+	{
+		$this->mID = $id;
+		$this->mUserID = $userID;
+		$this->mTime = $time;
+		$this->mStatus = $status;
+	}
+
+	function getUserID()
+	{
+		return $this->mUserID;
+	}
+
+	function getTime()
+	{
+		return $this->mTime;
+	}
+
+	function getStatus()
+	{
+		return $this->mStatus;
+	}
+}
+
 ?>

@@ -24,19 +24,37 @@
 		<?php
 			$my = new MySQLite();
 			$allUserInfo = $my->getAllUserInfo();
-			echo "<table border='1'>";
+			$userTableString = "<table border='1'>";
+			$countHaveLunch = 0;
 			for($i = 0; $i < count($allUserInfo); $i ++)
 			{
 				$status_text = "<font color='red'><B>未点</B></font>";
 				if($allUserInfo[$i]->getStatus() == 1)
 				{
 					$status_text = "<font color='green'><B>已点</B></font>";
+					$countHaveLunch ++;
 				}
-				echo "<tr>";
-				echo "<td>$i</td><td>".$allUserInfo[$i]->getUserName()."</td><td>".$status_text."</td>";
-				echo "</tr>";
+				$userTableString .= "<tr>";
+				$userTableString .= "<td>$i</td><td>".$allUserInfo[$i]->getUserName()."</td><td>".$status_text."</td>";
+				$userTableString .= "</tr>";
 			}
-			echo "</table>";
+			$userTableString .= "</table>";
+			echo "<font color=red size=5>总计：".$countHaveLunch."</font>";
+			echo $userTableString;
+
+
+			$allRecord = $my->getLastRecord();
+			echo "<br/><h3>最新动态</h3>";
+
+			$RecordString = "<table border='1'>";
+			for($i = 0; $i < count($allRecord); $i ++)
+			{
+				$RecordString .= "<tr>";
+				$RecordString .= "<td>".$allRecord[$i]->getUserID()."</td><td>".$allRecord[$i]->getTime()."</td><td>".$allRecord[$i]->getStatus()."</td>";
+				$RecordString .= "</tr>";
+			}
+			$RecordString .= "</table>";
+			echo $RecordString;
 		?>
 
 	</body>

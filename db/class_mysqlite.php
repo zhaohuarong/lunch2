@@ -52,7 +52,7 @@ EOF;
          return $arrayRet;
       }
 
-      function newRecord($userID, $status)
+      function addRecord($userID, $status)
       {
          $t = time();
          $t_string = date("Y-m-d H:i:s",$t);
@@ -62,9 +62,35 @@ EOF;
          $ret = $this->exec($sql);
          if(!$ret)
          {
-            echo $db->lastErrorMsg();
+            echo $this->lastErrorMsg();
+         }
+
+         $sql =<<<EOF
+            UPDATE lunch_user SET status = $status where ID=$userID;
+EOF;
+         $ret = $this->exec($sql);
+         if(!$ret)
+         {
+            echo $this->lastErrorMsg();
          }
       }
 
+      function getLastRecord()
+      {
+         $arrayRet = array();
+         $sql =<<<EOF
+            SELECT * FROM lunch_ret ORDER BY time DESC LIMIT 0,16
+EOF;
+         $ret = $this->query($sql);
+         while($row = $ret->fetchArray(SQLITE3_ASSOC) )
+         {
+            //$history_array[$i] = array($row['id'], $row['user_id'], $row['time'], $row['operation']);
+            $record = new LunchInfo($row['id'], $row['user_id'], $row['time'], $row['operation']);
+            //echo "--".$record->getUserID().",".$record->getTime().",".$record->getStatus()."<br/>";
+            array_push($arrayRet, $record);
+         }
+
+         return $arrayRet;
+      }
    }
 ?>
