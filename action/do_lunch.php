@@ -10,7 +10,7 @@ if(!isset($_POST["y"]) && !isset($_POST["n"])) {
 
 require_once("../db/class_mysqlite.php");
 
-$my = new MySQLite();
+$my = MySQLite::getInstance();
 
 if(in_array("点餐", $_POST))
 {

@@ -8,7 +8,7 @@ if(!isset($_POST["btn_login"])) {
 
 require_once("../db/class_mysqlite.php");
 
-$mysqlite = new MySQLite();
+$mysqlite = MySQLite::getInstance();
 $b = $mysqlite->login($_POST["username"], $_POST["password"]);
 
 if($b == 0)

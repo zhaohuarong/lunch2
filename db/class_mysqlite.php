@@ -7,17 +7,33 @@
 
    class MySQLite extends SQLite3
    {
+
+      static private $instance;
+
+      static public function getInstance()
+      {
+         if(!self::$instance instanceof self)
+         {
+            self::$instance = new self;
+         }
+         return self::$instance;
+      }
+
+      private function __clone(){}
+
       function __construct()
       {
          $this->open('../lunch.db');
+         //echo "<script language=\"JavaScript\">alert(\"openDB\");</script>";
       }
 
       function __destruct()
       {
          $this->close();
+         //echo "<script language=\"JavaScript\">alert(\"closeDB\");</script>";
       }
 
-      function login($username, $password)
+      public function login($username, $password)
       {
          $sql =<<<EOF
          SELECT * FROM lunch_user WHERE name='$username' AND password='$password';
@@ -36,7 +52,7 @@ EOF;
          return $success;
       }
 
-      function getAllUserInfo()
+      public function getAllUserInfo()
       {
          $arrayRet = array();
          $sql =<<<EOF
@@ -52,7 +68,7 @@ EOF;
          return $arrayRet;
       }
 
-      function addRecord($userID, $status)
+      public function addRecord($userID, $status)
       {
          $t = time();
          $t_string = date("Y-m-d H:i:s",$t);
@@ -75,7 +91,7 @@ EOF;
          }
       }
 
-      function getLastRecord()
+      public function getLastRecord()
       {
          $arrayRet = array();
          $sql =<<<EOF

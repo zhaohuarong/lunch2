@@ -1,9 +1,9 @@
 <?php
 class UserInfo
 {
-	var $m_id;
-	var $m_userName;
-	var $m_status;
+	private $m_id;
+	private $m_userName;
+	private $m_status;
 
 	function __construct($id, $name, $status)
 	{
@@ -30,10 +30,10 @@ class UserInfo
 
 class LunchInfo
 {
-	var $mID;
-	var $mUserID;
-	var $mTime;
-	var $mStatus;
+	private $mID;
+	private $mUserID;
+	private $mTime;
+	private $mStatus;
 
 	function __construct($id, $userID, $time, $status)
 	{

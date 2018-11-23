@@ -23,7 +23,7 @@
 		<br/>
 		<?php
 			$userIDAndName = array();
-			$my = new MySQLite();
+			$my = MySQLite::getInstance();
 			$allUserInfo = $my->getAllUserInfo();
 			$userTableString = "<table border='1'>";
 			$countHaveLunch = 0;
