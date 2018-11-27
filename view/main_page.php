@@ -14,12 +14,19 @@
 	</head>
 	<body>
 
-		<?php echo "Welcome ".$_SESSION['userid'].",".$_SESSION['username']."<br/>"; ?>
-		<br/>
-		<form method="post" action="../action/do_lunch.php">
-			<input type="submit" name="y" value="点餐"/>
-			<input type="submit" name="n" value="取消" />
-		</form>
+		<?php 
+		if(!isset($_SESSION['userid']))
+		{
+			echo "<form action=\"../action/login.php\" method=\"post\"> <input type=\"text\" name=\"username\"/> <input type=\"password\" name=\"password\"/> <input type=\"submit\" name=\"btn_login\"/> </form>";
+		}
+		else
+		{
+			echo "Welcome ".$_SESSION['userid'].",".$_SESSION['username'];
+			echo "<form method=\"post\" action=\"../action/logout.php\"> <input type=\"submit\" name=\"btn_logout\" value=\"退出\"> </form>"."<br/>";
+			echo "<form method=\"post\" action=\"../action/do_lunch.php\"> <input type=\"submit\" name=\"y\" value=\"点餐\"/> <input type=\"submit\" name=\"n\" value=\"取消\" /> </form>";
+		}
+
+		?>
 		<br/>
 		<?php
 			$userIDAndName = array();
@@ -31,13 +38,14 @@
 			{
 				$userIDAndName[$allUserInfo[$i]->getID()] = $allUserInfo[$i]->getUserName();
 				$status_text = "<font color='red'><B>未点</B></font>";
-				if($allUserInfo[$i]->getStatus() == 1)
+				//if($allUserInfo[$i]->getStatus() == 1)
+				if($my->getUserTodayStatus($allUserInfo[$i]->getID()) == 1)
 				{
 					$status_text = "<font color='green'><B>已点</B></font>";
 					$countHaveLunch ++;
 				}
 				$userTableString .= "<tr>";
-				$userTableString .= "<td>$i</td><td>".$allUserInfo[$i]->getUserName()."</td><td>".$status_text."</td>";
+				$userTableString .= "<td>".($i+1)."</td><td>".$allUserInfo[$i]->getUserName()."</td><td>".$status_text."</td>";
 				$userTableString .= "</tr>";
 			}
 			$userTableString .= "</table>";

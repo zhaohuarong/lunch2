@@ -95,7 +95,7 @@ EOF;
       {
          $arrayRet = array();
          $sql =<<<EOF
-            SELECT * FROM lunch_ret ORDER BY time DESC LIMIT 0,16
+            SELECT * FROM lunch_ret ORDER BY time DESC LIMIT 0,15
 EOF;
          $ret = $this->query($sql);
          while($row = $ret->fetchArray(SQLITE3_ASSOC) )
@@ -107,6 +107,28 @@ EOF;
          }
 
          return $arrayRet;
+      }
+
+      public function getUserTodayStatus($userID)
+      {
+         $status = 0;
+         $t = time();
+         $t_string = date("Y-m-d",$t);
+
+         $sql =<<<EOF
+            select * from lunch_ret where user_id = $userID and time >= '$t_string' ORDER BY time DESC LIMIT 0,1
+EOF;
+         $ret = $this->query($sql);
+         while($row = $ret->fetchArray(SQLITE3_ASSOC))
+         {
+            if($row['operation'] == 1)
+               $status = 1;
+            else
+               $status = 0;
+            break;
+         }
+
+         return $status;
       }
    }
 ?>
