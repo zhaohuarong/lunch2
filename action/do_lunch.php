@@ -16,13 +16,13 @@ if(in_array("点餐", $_POST))
 {
 	echo "yyyyyyyyyyyyyyyyyy<br/>";
 	$my->addRecord($_SESSION['userid'], 1);
-	header("location:../view/main_page.php");
+	header("location:../view/index.php");
 }
 else if(in_array("取消", $_POST))
 {
 	echo "nnnnnnnnnnnnnn<br/>";
 	$my->addRecord($_SESSION['userid'], 0);
-	header("location:../view/main_page.php");
+	header("location:../view/index.php");
 }
 else
 {

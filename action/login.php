@@ -13,11 +13,11 @@ $b = $mysqlite->login($_POST["username"], $_POST["password"]);
 
 if($b == 0)
 {
-	header("location:../view/main_page.php");
+	header("location:../view/index.php");
 }
 else
 {
-	header("location:../index.php");
+	echo "<script> {window.alert('登录失败');location.href='../view/index.php'} </script>";
 }
 
 ?>

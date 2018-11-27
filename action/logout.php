@@ -9,6 +9,6 @@ if(!isset($_POST["btn_logout"])) {
 unset($_SESSION['userid']);
 unset($_SESSION['username']);
 session_destroy();
-header("location:../view/main_page.php");
+header("location:../view/index.php");
 
 ?>
