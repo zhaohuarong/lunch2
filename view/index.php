@@ -69,5 +69,13 @@
 			echo $RecordString;
 		?>
 
+		<br/>
+		<h3>历史查询</h3>
+		<form method="post" action="../action/query_history.php">
+			<input name="begin_date" type="date"/>
+			~
+			<input name="end_date" type="date"/>
+			<input type="submit" name="query" value="查询" />
+		</form>
 	</body>
 </html>

@@ -134,5 +134,60 @@ EOF;
 
          return $status;
       }
+
+      public function queryByDate($begin_date, $end_date)
+      {
+         // get all user id
+         $allUserID = array();
+         $arrayUserInfo = $this->getAllUserInfo();
+//         echo count($arrayUserInfo)."<br/>";
+         for($j = 0; $j < count($arrayUserInfo); $j ++)
+         {
+            array_push($allUserID, $arrayUserInfo[$j]->getID());
+         }
+
+
+         $arr = array();
+         $stimestamp = strtotime($begin_date);
+         $etimestamp = strtotime($end_date);
+         $days = ($etimestamp - $stimestamp) / 86400 + 1;
+         for($i = 0; $i < $days; $i ++)
+         {
+            $iDay = date('Y-m-d', $stimestamp + (86400 * $i));
+            $arr_sub = array();
+            array_push($arr_sub, $iDay);
+            $sd = $iDay." 00:00:00";
+            $ed = $iDay." 23:59:59";
+
+            for($j = 0; $j < count($allUserID); $j ++)
+            {
+               $sql =<<<EOF
+               select * from lunch_ret where user_id = $allUserID[$j] and time >= '$sd' and time <= '$ed'
+EOF;
+               $ret = $this->query($sql);
+               while($row = $ret->fetchArray(SQLITE3_ASSOC))
+               {
+                  array_push($arr_sub, $allUserID[$j]);
+                  break;
+               }
+            }
+
+            array_push($arr, $arr_sub);
+         }
+
+         return $arr;
+         // for($i = 0; $i < count($arr); $i ++)
+         // {
+         //    $sub = $arr[$i];
+         //    if(count($sub) <= 1)
+         //       continue;
+         //    echo $sub[0].":";
+         //    for($j = 1; $j < count($sub); $j ++)
+         //    {
+         //       echo $sub[$j].",";
+         //    }
+         //    echo "<br/>";
+         // }
+      }
    }
 ?>
