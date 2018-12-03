@@ -1,7 +1,8 @@
 <?php if(!session_id()) session_start(); ?>
+
 <?php 
 	ini_set('date.timezone','Asia/Shanghai');
-	header("content-type:text/html;charset=utf-8");
+//	header("content-type:text/html;charset=utf-8");
 
 	require_once("../db/class_mysqlite.php");
 ?>

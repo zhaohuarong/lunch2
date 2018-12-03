@@ -1,5 +1,4 @@
 <?php if(!session_id()) session_start(); ?>
-<?php header("content-type:text/html;charset=utf-8"); ?>
 
 <?php
 if(!isset($_POST["btn_login"])) {
@@ -13,7 +12,8 @@ $b = $mysqlite->login($_POST["username"], $_POST["password"]);
 
 if($b == 0)
 {
-	header("location:../view/index.php");
+	//header("location:../view/index.php");
+	echo "<script> {location.href='../view/index.php'} </script>";
 }
 else
 {
