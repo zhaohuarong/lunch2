@@ -12,6 +12,15 @@ $end_date = $_POST["end_date"];
 echo $begin_date."-".$end_date."<br/>";
 $arr = $mysqlite->queryByDate($begin_date, $end_date);
 
+//get all user info
+$userIDAndName = array();
+$my = MySQLite::getInstance();
+$allUserInfo = $my->getAllUserInfo();
+for($i = 0; $i < count($allUserInfo); $i ++)
+{
+   $userIDAndName[$allUserInfo[$i]->getID()] = $allUserInfo[$i]->getUserName();
+}
+
 // print user table
 for($i = 0; $i < count($arr); $i ++)
 {
@@ -21,7 +30,7 @@ for($i = 0; $i < count($arr); $i ++)
    echo $sub[0].":";
    for($j = 1; $j < count($sub); $j ++)
    {
-      echo $sub[$j].",";
+      echo $userIDAndName[$sub[$j]].",";
    }
    echo "<br/>";
 }
